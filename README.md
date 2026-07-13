@@ -46,6 +46,13 @@
 - StratifiedKFold(5) OOF로 제출 지표와 **동일한** balanced accuracy 산출
 - V1 제출: **로컬 CV 0.94962 → Public LB 0.94952 (갭 0.0001)** → 이후 실험은 LB 소모 없이 CV로만 판단
 
+### 5. SHAP으로 모델 설명 — "왜 이 학생이 위험한가"까지
+클래스별 기여 요인(beeswarm)과 개인 단위 설명(waterfall). 수면 3.95h + 고스트레스 학생을 모델이 unhealthy(p=1.00)로 판정한 근거가 그대로 읽힌다 — 조기경보 서비스에서 상담사에게 제공할 설명 그 자체.
+
+| 클래스별 중요도 | 개인 설명 (waterfall) |
+|---|---|
+| ![shap](assets/shap_summary_bar.png) | ![waterfall](assets/shap_waterfall_student.png) |
+
 ---
 
 ## 🔍 EDA 하이라이트
