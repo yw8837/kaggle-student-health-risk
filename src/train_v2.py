@@ -67,7 +67,24 @@ def make_hgb(seed):
         class_weight="balanced", random_state=seed)
 
 
-def run(variant="C", seed=SEED, n_splits=5):
+def make_model(kind, seed):
+    """보팅 다양성용 모델 팩토리 (전부 sklearn API, 동일 폴드에서 비교)."""
+    if kind == "hgb":
+        return make_hgb(seed)
+    if kind == "cat":
+        from catboost import CatBoostClassifier
+        return CatBoostClassifier(iterations=2000, learning_rate=0.05, depth=8,
+                                  auto_class_weights="Balanced",
+                                  early_stopping_rounds=100, verbose=0, random_seed=seed)
+    if kind == "lgbm":
+        from lightgbm import LGBMClassifier
+        return LGBMClassifier(n_estimators=1500, learning_rate=0.05, num_leaves=63,
+                              class_weight="balanced", verbose=-1, n_jobs=-1,
+                              random_state=seed)
+    raise ValueError(kind)
+
+
+def run(variant="C", seed=SEED, n_splits=5, model_kind="hgb"):
     t0 = time.time()
     train = pd.read_csv(DATA / "train.csv")
     test = pd.read_csv(DATA / "test.csv")
@@ -117,7 +134,7 @@ def run(variant="C", seed=SEED, n_splits=5):
             X_te = pd.concat([X_te.reset_index(drop=True),
                               pd.DataFrame(te_te, columns=cols)], axis=1)
 
-        model = make_hgb(seed + fold)
+        model = make_model(model_kind, seed + fold)
         model.fit(X_tr, y_tr)
         oof[va] = model.predict_proba(X_va)
         test_pred += model.predict_proba(X_te) / n_splits
@@ -126,14 +143,16 @@ def run(variant="C", seed=SEED, n_splits=5):
         print(f"  fold{fold} bal_acc={s:.5f} iters={model.n_iter_}")
 
     cv = balanced_accuracy_score(y, oof.argmax(1))
-    print(f"[V2-{variant} seed{seed}] OOF={cv:.5f} mean={np.mean(scores):.5f} "
+    tag = f"v2_{variant}_s{seed}" if model_kind == "hgb" else f"v2_{variant}_{model_kind}_s{seed}"
+    print(f"[V2-{variant}/{model_kind} seed{seed}] OOF={cv:.5f} mean={np.mean(scores):.5f} "
           f"std={np.std(scores):.5f} time={time.time()-t0:.0f}s")
-    np.save(OOF / f"v2_{variant}_s{seed}_oof.npy", oof)
-    np.save(OOF / f"v2_{variant}_s{seed}_test.npy", test_pred)
+    np.save(OOF / f"{tag}_oof.npy", oof)
+    np.save(OOF / f"{tag}_test.npy", test_pred)
     return cv
 
 
 if __name__ == "__main__":
     variant = sys.argv[1] if len(sys.argv) > 1 else "C"
     seed = int(sys.argv[2]) if len(sys.argv) > 2 else SEED
-    run(variant, seed)
+    model_kind = sys.argv[3] if len(sys.argv) > 3 else "hgb"
+    run(variant, seed, model_kind=model_kind)
