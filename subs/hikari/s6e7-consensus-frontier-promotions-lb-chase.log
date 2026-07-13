@@ -1,0 +1,23 @@
+[{"stream_name":"stderr","time":10.726600046,"data":"0.00s - Debugger warning: It seems that frozen modules are being used, which may\n"}
+,{"stream_name":"stderr","time":10.727827814,"data":"0.00s - make the debugger miss breakpoints. Please pass -Xfrozen_modules=off\n"}
+,{"stream_name":"stderr","time":10.727833222,"data":"0.00s - to python to disable frozen modules.\n"}
+,{"stream_name":"stderr","time":10.727836691,"data":"0.00s - Note: Debugging will proceed. Set PYDEVD_DISABLE_FILE_VALIDATION=1 to disable this validation.\n"}
+,{"stream_name":"stderr","time":11.594638854,"data":"0.00s - Debugger warning: It seems that frozen modules are being used, which may\n"}
+,{"stream_name":"stderr","time":11.594677092,"data":"0.00s - make the debugger miss breakpoints. Please pass -Xfrozen_modules=off\n"}
+,{"stream_name":"stderr","time":11.594682664,"data":"0.00s - to python to disable frozen modules.\n"}
+,{"stream_name":"stderr","time":11.594687298,"data":"0.00s - Note: Debugging will proceed. Set PYDEVD_DISABLE_FILE_VALIDATION=1 to disable this validation.\n"}
+,{"stream_name":"stdout","time":14.706430804,"data":"consensus: /kaggle/input/notebooks/lucifer19/student-health-signal-engine/submission.csv (295753, 2) {'at-risk': np.float64(0.8107), 'unhealthy': np.float64(0.1155), 'fit': np.float64(0.0738)}\n"}
+,{"stream_name":"stdout","time":14.750147637,"data":"frontier promotions available: 316\n"}
+,{"stream_name":"stdout","time":14.750184601,"data":"top candidates: [(697096, 'fit'), (837729, 'fit'), (783599, 'unhealthy'), (913483, 'fit'), (703735, 'fit')]\n"}
+,{"stream_name":"stdout","time":14.93277098,"data":"applied 1 promotions (N=1)\n"}
+,{"stream_name":"stdout","time":14.932799294,"data":"changed vs consensus: 1\n"}
+,{"stream_name":"stdout","time":15.205259281,"data":"saved submission.csv (295753, 2) {'at-risk': np.float64(0.8107), 'unhealthy': np.float64(0.1155), 'fit': np.float64(0.0738)}\n"}
+,{"stream_name":"stderr","time":18.670078223,"data":"/usr/local/lib/python3.12/dist-packages/mistune.py:435: SyntaxWarning: invalid escape sequence '\\|'\n"}
+,{"stream_name":"stderr","time":18.670115601,"data":"  cells[i][c] = re.sub('\\\\\\\\\\|', '|', cell)\n"}
+,{"stream_name":"stderr","time":18.894525554,"data":"/usr/local/lib/python3.12/dist-packages/nbconvert/filters/filter_links.py:36: SyntaxWarning: invalid escape sequence '\\_'\n"}
+,{"stream_name":"stderr","time":18.894560347,"data":"  text = re.sub(r'_', '\\_', text) # Escape underscores in display text\n"}
+,{"stream_name":"stderr","time":19.773132109,"data":"[NbConvertApp] Converting notebook __notebook__.ipynb to notebook\n"}
+,{"stream_name":"stderr","time":20.166809263,"data":"[NbConvertApp] Writing 9623 bytes to __notebook__.ipynb\n"}
+,{"stream_name":"stderr","time":23.385526668,"data":"[NbConvertApp] Converting notebook __notebook__.ipynb to html\n"}
+,{"stream_name":"stderr","time":24.455454299,"data":"[NbConvertApp] Writing 291273 bytes to __results__.html\n"}
+]

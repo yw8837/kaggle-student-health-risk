@@ -65,7 +65,76 @@ VARIANT_FEATURES = {
     "D": {"rule", "te", "orig"}, "E": {"rule", "te", "soft"},
     "F": {"rule", "te", "bundle"},   # 티끌 번들: 2D 상호작용 TE + 빈도인코딩 + 무신호 제거
     "G": {"rule", "te", "bundle"},   # F와 동일 피처, 조기중단만 기존 loss (절제실험)
+    "H": {"rule", "te", "mres"},     # multi-resolution TE: 정확값 + 거친구간 동시
+    "I": {"rule", "te", "segte"},    # 세그먼트-조건부 TE: 결측패턴 x 프록시 상호작용 키
+    "J": {"rule", "te", "domain"},   # 도메인 파생변수 (효율/리스크/생활습관 비율·상호작용)
+    "K": {"rule", "te", "mres", "domain"},  # H+J 결합 (양수 티끌 2종 직교 결합)
 }
+
+
+def add_domain_features(X_tr_all, X_te_all):
+    """도메인 지식 파생변수 6종 (트리가 스스로 못 만드는 나눗셈/조합).
+
+    카테고리는 base_encode에서 서수(0/1/2)로 인코딩된 상태:
+      stress_level low=0/med=1/high=2, sleep_quality poor=0/average=1/good=2
+    결측은 NaN 유지 (HGB 네이티브 처리).
+    """
+    for X in (X_tr_all, X_te_all):
+        # 신체 효율 지수
+        X["total_activity_score"] = (X["step_count"] + X["exercise_duration"]
+                                     + X["calorie_expenditure"])
+        X["metabolic_efficiency"] = X["calorie_expenditure"] / X["bmi"]
+        # 건강 리스크 지표
+        X["cardio_stress_index"] = (X["heart_rate"] * X["bmi"]) / X["sleep_duration"]
+        X["sleep_debt"] = 7.5 - X["sleep_duration"]           # 권장 7~8h 대비 부족분(음수=초과)
+        # 생활 습관 점수
+        X["hydration_ratio"] = X["water_intake"] / X["bmi"]
+        X["stress_recovery_potential"] = ((X["sleep_quality"] * X["sleep_duration"])
+                                          / (X["stress_level"] + 1))
+    return X_tr_all, X_te_all
+
+
+def add_segte_features(X_tr_all, X_te_all):
+    """결측패턴 세그먼트 x 프록시 상호작용 키 (exact-value TE 대상).
+
+    핵심: '스트레스 결측 행 안에서의 수면질 값' 같은 조건부 타겟 통계를
+    (seg_id, value) 조합 카테고리로 만들어 기존 교차적합 TE가 계산하게 함.
+    결측 세그먼트(전체 오답의 85%)에 남은 프록시 신호를 정조준.
+    """
+    for X in (X_tr_all, X_te_all):
+        ms = X["miss_sleep"].astype(int)
+        mt = X["miss_stress"].astype(int)
+        ma = X["miss_activity"].astype(int)
+        n = ms + mt + ma
+        seg = np.select([n == 0, (ms == 1) & (n == 1), (mt == 1) & (n == 1),
+                         (ma == 1) & (n == 1)], [0, 1, 2, 3], default=4)
+        X["seg_id"] = seg.astype(float)
+        sb = (X["sleep_duration"] * 2).round().fillna(-1)
+        for name, key in [
+            ("k_seg_quality",  X["sleep_quality"].fillna(-1)),
+            ("k_seg_smoke",    X["smoking_alcohol"].fillna(-1)),
+            ("k_seg_stress",   X["stress_level"].fillna(-1)),
+            ("k_seg_act",      X["physical_activity_level"].fillna(-1)),
+            ("k_seg_sleepbin", sb),
+            ("k_seg_stepbin",  (X["step_count"] / 1000).round().fillna(-1)),
+        ]:
+            X[name] = seg * 1000 + key
+    return X_tr_all, X_te_all
+
+
+def add_mres_features(X_tr_all, X_te_all):
+    """거친 구간 키 생성 (exact-value TE와 함께 다중 해상도 TE 대상이 됨).
+
+    근거: RealMLP(OOF 0.9506) 재료가 'multi-resolution numeric TE'.
+    거친 구간은 표본이 많아 TE 추정이 안정, 정확값은 정밀 — 둘의 결합.
+    """
+    for c, step in [("sleep_duration", 0.5), ("sleep_duration", 0.25),
+                    ("bmi", 0.5), ("step_count", 500),
+                    ("calorie_expenditure", 100), ("exercise_duration", 5)]:
+        name = f"bin_{c}_{str(step).replace('.', '_')}"
+        for df in (X_tr_all, X_te_all):
+            df[name] = (df[c] / step).round()
+    return X_tr_all, X_te_all
 
 DEAD_FEATURES = ["heart_rate", "water_intake"]   # 효과크기 0.000x — 번들에서 제거
 
@@ -208,9 +277,22 @@ def run(variant="C", seed=SEED, n_splits=5, model_kind="hgb"):
     if "bundle" in flags:
         X, X_test = add_bundle_features(X, X_test)
         print(f"bundle features added: {X.shape[1]} cols")
+    if "mres" in flags:
+        X, X_test = add_mres_features(X, X_test)
+        print(f"mres features added: {X.shape[1]} cols")
+    if "segte" in flags:
+        X, X_test = add_segte_features(X, X_test)
+        print(f"segte features added: {X.shape[1]} cols")
+    if "domain" in flags:
+        X, X_test = add_domain_features(X, X_test)
+        print(f"domain features added: {X.shape[1]} cols")
 
     # TE 대상: 남아있는 수치형 + (번들이면) 상호작용 키
     te_cols = [c for c in NUM if c in X.columns]
+    if "mres" in flags:
+        te_cols += [c for c in X.columns if c.startswith("bin_")]
+    if "segte" in flags:
+        te_cols += [c for c in X.columns if c.startswith("k_seg_")]
     if "bundle" in flags:
         # 커뮤니티 v0.7 원 레시피: 범주형 6개도 TE (우리 기존엔 수치만)
         te_cols += [c for c in CAT if c in X.columns]

@@ -1,0 +1,68 @@
+[{"stream_name":"stderr","time":6.380973698,"data":"0.00s - Debugger warning: It seems that frozen modules are being used, which may\n"}
+,{"stream_name":"stderr","time":6.381045419,"data":"0.00s - make the debugger miss breakpoints. Please pass -Xfrozen_modules=off\n"}
+,{"stream_name":"stderr","time":6.381049831,"data":"0.00s - to python to disable frozen modules.\n"}
+,{"stream_name":"stderr","time":6.381052396,"data":"0.00s - Note: Debugging will proceed. Set PYDEVD_DISABLE_FILE_VALIDATION=1 to disable this validation.\n"}
+,{"stream_name":"stderr","time":6.959684936,"data":"0.00s - Debugger warning: It seems that frozen modules are being used, which may\n"}
+,{"stream_name":"stderr","time":6.959723904,"data":"0.00s - make the debugger miss breakpoints. Please pass -Xfrozen_modules=off\n"}
+,{"stream_name":"stderr","time":6.959729886,"data":"0.00s - to python to disable frozen modules.\n"}
+,{"stream_name":"stderr","time":6.959733877,"data":"0.00s - Note: Debugging will proceed. Set PYDEVD_DISABLE_FILE_VALIDATION=1 to disable this validation.\n"}
+,{"stream_name":"stdout","time":10.158498099,"data":"Hello, Kaggle community — thank you for the shared ideas and strong public baselines.\n"}
+,{"stream_name":"stdout","time":10.158560711,"data":"Environment: GPUs=1 | folds=4 | seed=20260713\n"}
+,{"stream_name":"stdout","time":12.706760151,"data":"🐈‍⬛ ANCHOR VALIDATED\n"}
+,{"stream_name":"stdout","time":12.706821651,"data":"Anchor source=embedded 0.95112.csv | frozen changes=18 | rows=295,753 | md5=825d974d391c77e7ffee8e2f3eca3049\n"}
+,{"stream_name":"stdout","time":12.70682872,"data":"Competition data=ready | embedded consensus sources=20\n"}
+,{"stream_name":"stdout","time":25.868649006,"data":"Feature matrix ready: train=(690088, 93) | test=(295753, 93) | categorical=11\n"}
+,{"stream_name":"stdout","time":25.868704689,"data":"Missing values preserved + indicators | target-free frequency/rank/group features | shared deterministic encodings\n"}
+,{"stream_name":"stdout","time":27.980120228,"data":"Training CatBoost (GPU)...\n"}
+,{"stream_name":"stdout","time":85.906956395,"data":"  fold 1/4 complete\n"}
+,{"stream_name":"stdout","time":112.600483088,"data":"  fold 2/4 complete\n"}
+,{"stream_name":"stdout","time":145.8176631,"data":"  fold 3/4 complete\n"}
+,{"stream_name":"stdout","time":174.02883818,"data":"  fold 4/4 complete\n"}
+,{"stream_name":"stdout","time":174.028880285,"data":"  raw OOF=0.94934 | folds=[0.94937, 0.94935, 0.94913, 0.94952]\n"}
+,{"stream_name":"stdout","time":177.690300809,"data":"🐈‍⬛ ITERATION 01 — CatBoost native + relational features — score=0.94931 / delta=+0.00531 / decision=ACCEPTED\n"}
+,{"stream_name":"stdout","time":177.69034197,"data":"🐈‍⬛ CHALLENGER ACCEPTED\n"}
+,{"stream_name":"stdout","time":177.690348032,"data":"  models=['cat'] | fold_scores=[0.94942, 0.94946, 0.94922, 0.94916] | weights={'cat': np.float64(1.0)}\n"}
+,{"stream_name":"stdout","time":182.147524183,"data":"Training LightGBM (deterministic CPU)...\n"}
+,{"stream_name":"stdout","time":888.08237593,"data":"  fold 1/4 complete\n"}
+,{"stream_name":"stdout","time":1604.38189545,"data":"  fold 2/4 complete\n"}
+,{"stream_name":"stdout","time":2305.195339679,"data":"  fold 3/4 complete\n"}
+,{"stream_name":"stdout","time":3008.113972435,"data":"  fold 4/4 complete\n"}
+,{"stream_name":"stdout","time":3008.359420013,"data":"  raw OOF=0.93588 | folds=[0.93681, 0.93613, 0.93598, 0.93459]\n"}
+,{"stream_name":"stdout","time":3069.221066695,"data":"🐈‍⬛ ITERATION 02 — LightGBM deterministic diversity — score=0.94967 / delta=+0.00036 / decision=ACCEPTED\n"}
+,{"stream_name":"stdout","time":3069.221158739,"data":"🐈‍⬛ CHALLENGER ACCEPTED\n"}
+,{"stream_name":"stdout","time":3069.221182571,"data":"  models=['cat', 'lgb'] | fold_scores=[0.94962, 0.94972, 0.94975, 0.9496] | weights={'cat': np.float64(0.741), 'lgb': np.float64(0.259)}\n"}
+,{"stream_name":"stdout","time":3069.221187192,"data":"  paired 90% CI lower=+0.000198 | fold_delta=[0.000206, 0.000253, 0.000532, 0.000446]\n"}
+,{"stream_name":"stdout","time":3069.415628841,"data":"Training XGBoost (cuda)...\n"}
+,{"stream_name":"stdout","time":3147.747402655,"data":"  fold 1/4 complete\n"}
+,{"stream_name":"stdout","time":3225.856612644,"data":"  fold 2/4 complete\n"}
+,{"stream_name":"stdout","time":3304.696688382,"data":"  fold 3/4 complete\n"}
+,{"stream_name":"stdout","time":3383.252730883,"data":"  fold 4/4 complete\n"}
+,{"stream_name":"stdout","time":3383.577178306,"data":"  raw OOF=0.94322 | folds=[0.94338, 0.94375, 0.94298, 0.94278]\n"}
+,{"stream_name":"stdout","time":3455.804588516,"data":"🐈‍⬛ ITERATION 03 — XGBoost histogram diversity — score=0.94965 / delta=-0.00002 / decision=ROLLED BACK\n"}
+,{"stream_name":"stdout","time":3455.804629209,"data":"🐈‍⬛ CHALLENGER ROLLED BACK\n"}
+,{"stream_name":"stdout","time":3455.804636276,"data":"  retained=['cat', 'lgb'] | paired 90% CI lower=-0.000152 | fold_delta=[0.000149, -0.00012, -9.3e-05, -2.8e-05]\n"}
+,{"stream_name":"stdout","time":3455.872556378,"data":"🐈‍⬛ ITERATION 04 — Joint diversity package — score=0.94965 / delta=-0.00002 / decision=ROLLED BACK\n"}
+,{"stream_name":"stdout","time":3455.872604776,"data":"🐈‍⬛ CHALLENGER ROLLED BACK\n"}
+,{"stream_name":"stdout","time":3455.872611918,"data":"  retained=['cat', 'lgb'] | CI lower=-0.000152 | fold_delta=[0.000149, -0.00012, -9.3e-05, -2.8e-05]\n"}
+,{"stream_name":"stdout","time":3487.041421357,"data":"🐈‍⬛ ITERATION 05 — Leakage-safe selective correction — score=0.94932 / delta=+0.00001 / decision=ROLLED BACK\n"}
+,{"stream_name":"stdout","time":3487.041482768,"data":"🐈‍⬛ CHALLENGER ROLLED BACK\n"}
+,{"stream_name":"stdout","time":3487.041489555,"data":"  proxy=cat (0.94931) | policy=0.94932 | 90% CI lower=+0.000002\n"}
+,{"stream_name":"stdout","time":3487.041494919,"data":"  fold_delta=[0.0, 0.0, 2e-05, 0.0] | changed_by_fold=[0, 0, 9, 0] | params={'vote_tau': 1.0, 'margin_tau': 0.2, 'base_conf_max': 0.58, 'max_rate': 8.75e-05, 'base_name': 'cat'}\n"}
+,{"stream_name":"stdout","time":3487.248016133,"data":"No accepted selective policy; exact frozen anchor retained.\n"}
+,{"stream_name":"stdout","time":3487.797805242,"data":"🐈‍⬛ SUBMISSION VALIDATED\n"}
+,{"stream_name":"stdout","time":3487.797849366,"data":"Rows=295,753 | columns=['id', 'health_condition'] | new_overrides=0 | md5=825d974d391c77e7ffee8e2f3eca3049\n"}
+,{"stream_name":"stdout","time":3487.797861272,"data":"health_condition\n"}
+,{"stream_name":"stdout","time":3487.797879516,"data":"at-risk      0.810768\n"}
+,{"stream_name":"stdout","time":3487.797884964,"data":"unhealthy    0.115454\n"}
+,{"stream_name":"stdout","time":3487.797890423,"data":"fit          0.073778\n"}
+,{"stream_name":"stdout","time":3487.797894979,"data":"🐈‍⬛ FINAL CHAMPION READY\n"}
+,{"stream_name":"stdout","time":3487.797899803,"data":"🐈‍⬛ FINAL STATUS: VALIDATED CHAMPION — SAFE TO SUBMIT\n"}
+,{"stream_name":"stderr","time":3491.666126007,"data":"/usr/local/lib/python3.12/dist-packages/mistune.py:435: SyntaxWarning: invalid escape sequence '\\|'\n"}
+,{"stream_name":"stderr","time":3491.666170105,"data":"  cells[i][c] = re.sub('\\\\\\\\\\|', '|', cell)\n"}
+,{"stream_name":"stderr","time":3491.816625603,"data":"/usr/local/lib/python3.12/dist-packages/nbconvert/filters/filter_links.py:36: SyntaxWarning: invalid escape sequence '\\_'\n"}
+,{"stream_name":"stderr","time":3491.816681315,"data":"  text = re.sub(r'_', '\\_', text) # Escape underscores in display text\n"}
+,{"stream_name":"stderr","time":3492.485634447,"data":"[NbConvertApp] Converting notebook __notebook__.ipynb to notebook\n"}
+,{"stream_name":"stderr","time":3492.796844128,"data":"[NbConvertApp] Writing 217224 bytes to __notebook__.ipynb\n"}
+,{"stream_name":"stderr","time":3495.21834867,"data":"[NbConvertApp] Converting notebook __notebook__.ipynb to html\n"}
+,{"stream_name":"stderr","time":3496.36515495,"data":"[NbConvertApp] Writing 765323 bytes to __results__.html\n"}
+]

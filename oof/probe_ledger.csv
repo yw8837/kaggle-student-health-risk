@@ -1,0 +1,7 @@
+group,rows,mean_posterior,flip_to,file,cumulative
+P1_unh_strong,0,0.0,unhealthy,probe_P1_unh_strong.csv,True
+P2_fit_strong,0,0.0,fit,probe_P2_fit_strong.csv,True
+P3_unh_mid,0,0.0,unhealthy,probe_P3_unh_mid.csv,True
+P4_fit_mid,0,0.0,fit,probe_P4_fit_mid.csv,True
+P5_unh_edge,2,0.289,unhealthy,probe_P5_unh_edge.csv,True
+P6_fit_edge,0,0.0,fit,probe_P6_fit_edge.csv,True

@@ -1,0 +1,135 @@
+[{"stream_name":"stderr","time":8.547458836,"data":"0.00s - Debugger warning: It seems that frozen modules are being used, which may\n"}
+,{"stream_name":"stderr","time":8.547556366,"data":"0.00s - make the debugger miss breakpoints. Please pass -Xfrozen_modules=off\n"}
+,{"stream_name":"stderr","time":8.547562906,"data":"0.00s - to python to disable frozen modules.\n"}
+,{"stream_name":"stderr","time":8.547565516,"data":"0.00s - Note: Debugging will proceed. Set PYDEVD_DISABLE_FILE_VALIDATION=1 to disable this validation.\n"}
+,{"stream_name":"stderr","time":9.204269478,"data":"0.00s - Debugger warning: It seems that frozen modules are being used, which may\n"}
+,{"stream_name":"stderr","time":9.204320458,"data":"0.00s - make the debugger miss breakpoints. Please pass -Xfrozen_modules=off\n"}
+,{"stream_name":"stderr","time":9.204325329,"data":"0.00s - to python to disable frozen modules.\n"}
+,{"stream_name":"stderr","time":9.204329189,"data":"0.00s - Note: Debugging will proceed. Set PYDEVD_DISABLE_FILE_VALIDATION=1 to disable this validation.\n"}
+,{"stream_name":"stdout","time":11.570179301,"data":"\n"}
+,{"stream_name":"stdout","time":11.570252131,"data":"🐈‍⬛ SHADOWCAT ARBITER v2\n"}
+,{"stream_name":"stdout","time":11.570260221,"data":"────────────────────────────────────────────────────────────────────────\n"}
+,{"stream_name":"stdout","time":11.570267011,"data":"  Hello, Kaggle community — thank you to the original authors and contributors.\n"}
+,{"stream_name":"stdout","time":11.570271821,"data":"  Stable anchor • independent consensus • guarded overrides\n"}
+,{"stream_name":"stdout","time":12.012534471,"data":"\n"}
+,{"stream_name":"stdout","time":12.012587891,"data":"🐈‍⬛ ANCHOR LOCK\n"}
+,{"stream_name":"stdout","time":12.012595981,"data":"────────────────────────────────────────────────────────────────────────\n"}
+,{"stream_name":"stdout","time":12.012602581,"data":"  Sources discovered       20\n"}
+,{"stream_name":"stdout","time":12.012608181,"data":"  Anchor file              0.95112.csv\n"}
+,{"stream_name":"stdout","time":12.012613421,"data":"  Parsed score             0.95112\n"}
+,{"stream_name":"stdout","time":12.012618501,"data":"  Rows                     295,753\n"}
+,{"stream_name":"stdout","time":12.012623521,"data":"  Anchor MD5               4464bd30077e87a705d97cbaa63db211\n"}
+,{"stream_name":"stdout","time":12.012628351,"data":"\n"}
+,{"stream_name":"stdout","time":12.012632671,"data":"  Top scored sources\n"}
+,{"stream_name":"stdout","time":12.012637331,"data":"       name   score\n"}
+,{"stream_name":"stdout","time":12.012642171,"data":"0.95112.csv 0.95112\n"}
+,{"stream_name":"stdout","time":12.012646951,"data":"0.95108.csv 0.95108\n"}
+,{"stream_name":"stdout","time":12.012651461,"data":"0.95102.csv 0.95102\n"}
+,{"stream_name":"stdout","time":12.012656241,"data":"0.95101.csv 0.95101\n"}
+,{"stream_name":"stdout","time":12.012661081,"data":"0.95086.csv 0.95086\n"}
+,{"stream_name":"stdout","time":12.012666121,"data":"0.95075.csv 0.95075\n"}
+,{"stream_name":"stdout","time":12.012671081,"data":"0.95070.csv 0.95070\n"}
+,{"stream_name":"stdout","time":12.012676271,"data":"0.95066.csv 0.95066\n"}
+,{"stream_name":"stdout","time":15.051934492,"data":"\n"}
+,{"stream_name":"stdout","time":15.051980721,"data":"🐈‍⬛ SOURCE DECORRELATION\n"}
+,{"stream_name":"stdout","time":15.051986281,"data":"────────────────────────────────────────────────────────────────────────\n"}
+,{"stream_name":"stdout","time":15.052269871,"data":"  Usable sources           20\n"}
+,{"stream_name":"stdout","time":15.710974704,"data":"  Independent cliques      1\n"}
+,{"stream_name":"stdout","time":15.711070634,"data":"  Clique epsilon           0.004\n"}
+,{"stream_name":"stdout","time":15.711078134,"data":"  Clique sizes             [20]\n"}
+,{"stream_name":"stdout","time":15.711081624,"data":"\n"}
+,{"stream_name":"stdout","time":15.711084604,"data":"  Highest independent weights\n"}
+,{"stream_name":"stdout","time":15.711087894,"data":"  0.95112.csv                  score=0.95112  weight=0.0500\n"}
+,{"stream_name":"stdout","time":15.711091624,"data":"  0.95108.csv                  score=0.95108  weight=0.0500\n"}
+,{"stream_name":"stdout","time":15.711094813999999,"data":"  0.95102.csv                  score=0.95102  weight=0.0500\n"}
+,{"stream_name":"stdout","time":15.711097904,"data":"  0.95101.csv                  score=0.95101  weight=0.0500\n"}
+,{"stream_name":"stdout","time":15.711101324,"data":"  0.95086.csv                  score=0.95086  weight=0.0500\n"}
+,{"stream_name":"stdout","time":15.711104544,"data":"  0.95075.csv                  score=0.95075  weight=0.0500\n"}
+,{"stream_name":"stdout","time":15.711107684,"data":"  0.95070.csv                  score=0.95070  weight=0.0500\n"}
+,{"stream_name":"stdout","time":15.711110834,"data":"  0.95066.csv                  score=0.95066  weight=0.0500\n"}
+,{"stream_name":"stdout","time":15.711113934,"data":"  Effective source count   20.00 / 20\n"}
+,{"stream_name":"stdout","time":16.080095704,"data":"\n"}
+,{"stream_name":"stdout","time":16.080142004,"data":"🐈‍⬛ DISPUTED-ROW MAP\n"}
+,{"stream_name":"stdout","time":16.080147924,"data":"────────────────────────────────────────────────────────────────────────\n"}
+,{"stream_name":"stdout","time":16.080153604,"data":"  Consensus moves          273\n"}
+,{"stream_name":"stdout","time":16.080157055,"data":"  Margin-qualified rows    115\n"}
+,{"stream_name":"stdout","time":16.080160125,"data":"  Consensus margin gate    0.15\n"}
+,{"stream_name":"stdout","time":16.080163245,"data":"\n"}
+,{"stream_name":"stdout","time":16.080166385,"data":"  Anchor → consensus transitions\n"}
+,{"stream_name":"stdout","time":16.080169925,"data":"col_0      at-risk  fit  unhealthy\n"}
+,{"stream_name":"stdout","time":16.080172995,"data":"row_0                             \n"}
+,{"stream_name":"stdout","time":16.080176134,"data":"at-risk          0    9         18\n"}
+,{"stream_name":"stdout","time":16.080179514,"data":"fit              6    0          3\n"}
+,{"stream_name":"stdout","time":16.080183134,"data":"unhealthy       77    2          0\n"}
+,{"stream_name":"stdout","time":23.40442017,"data":"\n"}
+,{"stream_name":"stdout","time":23.40447723,"data":"🐈‍⬛ ARBITER MODEL\n"}
+,{"stream_name":"stdout","time":23.40448274,"data":"────────────────────────────────────────────────────────────────────────\n"}
+,{"stream_name":"stdout","time":23.40450206,"data":"  Competition data         /kaggle/input/competitions/playground-series-s6e7\n"}
+,{"stream_name":"stdout","time":23.40450543,"data":"  Train shape              (690088, 15)\n"}
+,{"stream_name":"stdout","time":23.40453883,"data":"  Test shape               (295753, 14)\n"}
+,{"stream_name":"stdout","time":174.283112865,"data":"  Fold 1/5  accuracy=0.94476\n"}
+,{"stream_name":"stdout","time":311.002962655,"data":"  Fold 2/5  accuracy=0.94299\n"}
+,{"stream_name":"stdout","time":459.340408325,"data":"  Fold 3/5  accuracy=0.94437\n"}
+,{"stream_name":"stdout","time":602.013261734,"data":"  Fold 4/5  accuracy=0.94412\n"}
+,{"stream_name":"stdout","time":744.539341842,"data":"  Fold 5/5  accuracy=0.94461\n"}
+,{"stream_name":"stdout","time":744.539393562,"data":"  OOF accuracy             0.94417\n"}
+,{"stream_name":"stdout","time":744.584425405,"data":"\n"}
+,{"stream_name":"stdout","time":744.584465565,"data":"🐈‍⬛ DOUBLE-KEY OVERRIDES\n"}
+,{"stream_name":"stdout","time":744.584471165,"data":"────────────────────────────────────────────────────────────────────────\n"}
+,{"stream_name":"stdout","time":744.584476155,"data":"  Disputed rows            115\n"}
+,{"stream_name":"stdout","time":744.584479185,"data":"  Double-key matches       7\n"}
+,{"stream_name":"stdout","time":744.584482125,"data":"  Applied overrides        7 / 400\n"}
+,{"stream_name":"stdout","time":744.584485085,"data":"\n"}
+,{"stream_name":"stdout","time":744.584489425,"data":"  Strongest overrides\n"}
+,{"stream_name":"stdout","time":744.584494865,"data":"           anchor consensus  p_cons  p_anchor  model_margin  cons_margin   key\n"}
+,{"stream_name":"stdout","time":744.584500035,"data":"id                                                                            \n"}
+,{"stream_name":"stdout","time":744.584505245,"data":"863821        fit   at-risk  0.8474    0.1525        0.6949          0.2  True\n"}
+,{"stream_name":"stdout","time":744.584510765,"data":"710958  unhealthy   at-risk  0.8039    0.1935        0.6104          0.2  True\n"}
+,{"stream_name":"stdout","time":744.584515725,"data":"698943  unhealthy   at-risk  0.8005    0.1994        0.6011          0.2  True\n"}
+,{"stream_name":"stdout","time":744.584520975,"data":"773640  unhealthy   at-risk  0.7897    0.2102        0.5796          0.2  True\n"}
+,{"stream_name":"stdout","time":744.584526045,"data":"896268  unhealthy   at-risk  0.7828    0.2107        0.5721          0.2  True\n"}
+,{"stream_name":"stdout","time":744.584531145,"data":"690753        fit   at-risk  0.7694    0.2124        0.5570          0.2  True\n"}
+,{"stream_name":"stdout","time":744.584535985,"data":"802627  unhealthy   at-risk  0.7659    0.2158        0.5501          0.3  True\n"}
+,{"stream_name":"stdout","time":744.584540625,"data":"\n"}
+,{"stream_name":"stdout","time":744.584545465,"data":"  Override directions\n"}
+,{"stream_name":"stdout","time":744.584550895,"data":"consensus  at-risk\n"}
+,{"stream_name":"stdout","time":744.584556135,"data":"anchor            \n"}
+,{"stream_name":"stdout","time":744.584561815,"data":"fit              2\n"}
+,{"stream_name":"stdout","time":744.584566565,"data":"unhealthy        5\n"}
+,{"stream_name":"stdout","time":744.636400808,"data":"\n"}
+,{"stream_name":"stdout","time":744.636440899,"data":"🐈‍⬛ GUARDED MICRO-FLIPS\n"}
+,{"stream_name":"stdout","time":744.636448048,"data":"────────────────────────────────────────────────────────────────────────\n"}
+,{"stream_name":"stdout","time":744.636453808,"data":"  Applied                  11\n"}
+,{"stream_name":"stdout","time":744.728445284,"data":"\n"}
+,{"stream_name":"stdout","time":744.792640328,"data":"🐈‍⬛ FINAL SAFETY GATE\n"}
+,{"stream_name":"stdout","time":744.792674689,"data":"────────────────────────────────────────────────────────────────────────\n"}
+,{"stream_name":"stdout","time":744.792680218,"data":"  Changed rows             18 / 295,753\n"}
+,{"stream_name":"stdout","time":744.792683369,"data":"  Change ratio             6.09e-05\n"}
+,{"stream_name":"stdout","time":744.792686458,"data":"  Worst class drift        0.000047 / 0.01\n"}
+,{"stream_name":"stdout","time":744.792689378,"data":"\n"}
+,{"stream_name":"stdout","time":744.792692149,"data":"  Class distribution\n"}
+,{"stream_name":"stdout","time":744.792694989,"data":"             anchor     final     drift\n"}
+,{"stream_name":"stdout","time":744.792697829,"data":"class                                  \n"}
+,{"stream_name":"stdout","time":744.792700729,"data":"at-risk    0.810720  0.810768  0.000047\n"}
+,{"stream_name":"stdout","time":744.792703429,"data":"unhealthy  0.115492  0.115454 -0.000037\n"}
+,{"stream_name":"stdout","time":744.792706249,"data":"fit        0.073788  0.073778 -0.000010\n"}
+,{"stream_name":"stdout","time":745.061173886,"data":"\n"}
+,{"stream_name":"stdout","time":745.061209746,"data":"🐈‍⬛ SUBMISSION READY\n"}
+,{"stream_name":"stdout","time":745.061213655,"data":"────────────────────────────────────────────────────────────────────────\n"}
+,{"stream_name":"stdout","time":745.061217475,"data":"  Output                   submission.csv\n"}
+,{"stream_name":"stdout","time":745.061219486,"data":"  Rows                     295,753\n"}
+,{"stream_name":"stdout","time":745.061221575,"data":"  MD5                      825d974d391c77e7ffee8e2f3eca3049\n"}
+,{"stream_name":"stdout","time":745.061223515,"data":"  Mode                     arbiter\n"}
+,{"stream_name":"stdout","time":745.061225466,"data":"  Micro-flips              True\n"}
+,{"stream_name":"stdout","time":745.061227326,"data":"  Safe anchor              submission_safe_0_95114.csv\n"}
+,{"stream_name":"stdout","time":745.061229315,"data":"\n"}
+,{"stream_name":"stdout","time":745.061231175,"data":"  🐾 Clean run complete. The guarded challenger and safe anchor are ready.\n"}
+,{"stream_name":"stderr","time":748.581076001,"data":"/usr/local/lib/python3.12/dist-packages/mistune.py:435: SyntaxWarning: invalid escape sequence '\\|'\n"}
+,{"stream_name":"stderr","time":748.58111437,"data":"  cells[i][c] = re.sub('\\\\\\\\\\|', '|', cell)\n"}
+,{"stream_name":"stderr","time":748.767083752,"data":"/usr/local/lib/python3.12/dist-packages/nbconvert/filters/filter_links.py:36: SyntaxWarning: invalid escape sequence '\\_'\n"}
+,{"stream_name":"stderr","time":748.767129882,"data":"  text = re.sub(r'_', '\\_', text) # Escape underscores in display text\n"}
+,{"stream_name":"stderr","time":749.468961897,"data":"[NbConvertApp] Converting notebook __notebook__.ipynb to notebook\n"}
+,{"stream_name":"stderr","time":749.772287896,"data":"[NbConvertApp] Writing 38010 bytes to __notebook__.ipynb\n"}
+,{"stream_name":"stderr","time":752.51657587,"data":"[NbConvertApp] Converting notebook __notebook__.ipynb to html\n"}
+,{"stream_name":"stderr","time":753.445107702,"data":"[NbConvertApp] Writing 381625 bytes to __results__.html\n"}
+]

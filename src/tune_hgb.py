@@ -71,6 +71,13 @@ def main(n_trials=40):
 
     study = optuna.create_study(direction="maximize",
                                 sampler=optuna.samplers.TPESampler(seed=SEED))
+    # 웜스타트: 현행 설정 + 보수/공격 변형을 첫 트라이얼로 주입 (필요 트라이얼 절반화)
+    study.enqueue_trial(dict(learning_rate=0.05, max_leaf_nodes=63, min_samples_leaf=40,
+                             l2_regularization=1.0, max_bins=255, max_features=1.0))
+    study.enqueue_trial(dict(learning_rate=0.03, max_leaf_nodes=127, min_samples_leaf=80,
+                             l2_regularization=3.0, max_bins=255, max_features=0.8))
+    study.enqueue_trial(dict(learning_rate=0.08, max_leaf_nodes=31, min_samples_leaf=20,
+                             l2_regularization=0.3, max_bins=127, max_features=0.9))
     study.optimize(objective, n_trials=n_trials, show_progress_bar=False)
 
     print(f"\nbest subsample-CV = {study.best_value:.5f} (baseline {base:.5f}, "
