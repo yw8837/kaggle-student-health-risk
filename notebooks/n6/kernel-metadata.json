@@ -1,0 +1,21 @@
+{
+  "id": "yw8837/n6-external-consensus",
+  "title": "N6 - External Consensus",
+  "code_file": "n6-external-consensus.ipynb",
+  "language": "python",
+  "kernel_type": "notebook",
+  "is_private": true,
+  "enable_gpu": false,
+  "enable_internet": false,
+  "competition_sources": ["playground-series-s6e7"],
+  "dataset_sources": [],
+  "kernel_sources": [
+    "yw8837/n5-hgb-te-10fold-7seed",
+    "artkomissar/s6e7-external-consensus-mf-lb-0-95114",
+    "hikari30/s6e7-external-ensemble-lb-chase-lb0-95113",
+    "amanatar/s6e7-student-hearth-risk-lb-0-95112",
+    "anhadmahajan06/s6e7-post-processing-ensemble-lb-0-95112",
+    "nawfeelrahman1124444/ps-s6-ep6-realmlp-0-95090",
+    "vad13irt/ps-s6e7-eda-ensemble-lb-0-95075"
+  ]
+}

@@ -1,0 +1,16 @@
+{
+  "id": "yw8837/n7-n5-realmlp-blend",
+  "title": "N7 - N5 RealMLP Blend",
+  "code_file": "n7-n5-realmlp-blend.ipynb",
+  "language": "python",
+  "kernel_type": "notebook",
+  "is_private": true,
+  "enable_gpu": false,
+  "enable_internet": false,
+  "competition_sources": ["playground-series-s6e7"],
+  "dataset_sources": [],
+  "kernel_sources": [
+    "yw8837/n5-hgb-te-10fold-7seed",
+    "nawfeelrahman1124444/ps-s6-ep6-realmlp-0-95090"
+  ]
+}

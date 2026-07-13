@@ -64,6 +64,7 @@ VARIANT_FEATURES = {
     "A": set(), "B": {"rule"}, "C": {"rule", "te"},
     "D": {"rule", "te", "orig"}, "E": {"rule", "te", "soft"},
     "F": {"rule", "te", "bundle"},   # 티끌 번들: 2D 상호작용 TE + 빈도인코딩 + 무신호 제거
+    "G": {"rule", "te", "bundle"},   # F와 동일 피처, 조기중단만 기존 loss (절제실험)
 }
 
 DEAD_FEATURES = ["heart_rate", "water_intake"]   # 효과크기 0.000x — 번들에서 제거
@@ -254,7 +255,7 @@ def run(variant="C", seed=SEED, n_splits=5, model_kind="hgb"):
                               pd.DataFrame(te_te, columns=cols)], axis=1)
 
         model = make_model(model_kind, seed + fold,
-                           metric_aligned=("bundle" in flags))
+                           metric_aligned=("bundle" in flags and variant != "G"))
         model.fit(X_tr, y_tr)
         oof[va] = model.predict_proba(X_va)
         test_pred += model.predict_proba(X_te) / n_splits
