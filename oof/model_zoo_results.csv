@@ -1,0 +1,12 @@
+model,balanced_accuracy,fit_sec,predict_sec,weighted
+HistGradientBoosting,0.95183,4.19,0.08,yes
+CatBoost,0.94934,38.93,0.035,yes
+RandomForest,0.925,5.22,0.255,yes
+LightGBM,0.92082,17.64,0.55,yes
+LogisticRegression,0.91995,0.84,0.011,yes
+XGBoost,0.91804,33.15,0.206,yes
+GaussianNB,0.87741,0.2,0.068,yes
+MLP,0.87026,27.16,0.047,no
+DecisionTree,0.87019,1.35,0.009,yes
+ExtraTrees,0.8334,6.72,0.484,yes
+KNeighbors,0.67031,0.01,2.92,no
