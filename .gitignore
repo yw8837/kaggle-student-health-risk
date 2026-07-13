@@ -11,3 +11,4 @@ __pycache__/
 *.pyc
 .omc/
 .ipynb_checkpoints/
+catboost_info/
