@@ -60,6 +60,108 @@ def add_rule_features(X):
     return X
 
 
+VARIANT_FEATURES = {
+    "A": set(), "B": {"rule"}, "C": {"rule", "te"},
+    "D": {"rule", "te", "orig"}, "E": {"rule", "te", "soft"},
+    "F": {"rule", "te", "bundle"},   # 티끌 번들: 2D 상호작용 TE + 빈도인코딩 + 무신호 제거
+}
+
+DEAD_FEATURES = ["heart_rate", "water_intake"]   # 효과크기 0.000x — 번들에서 제거
+
+def add_bundle_features(X_tr_all, X_te_all):
+    """티끌 번들 (라벨 미사용 부분): 빈도 인코딩 + 2D 상호작용 키 생성.
+
+    - count encoding: train+test 합산 값 빈도 (합성데이터의 '원본스러움' 신호)
+    - interaction key: (수면 0.5h 구간 x 스트레스), (수면구간 x 활동) -> fold 내 TE 대상
+    """
+    both = pd.concat([X_tr_all, X_te_all], ignore_index=True)
+    n_tr = len(X_tr_all)
+    for c in ["sleep_duration", "step_count", "bmi", "calorie_expenditure"]:
+        cnt = both[c].map(both[c].value_counts())
+        X_tr_all[f"cnt_{c}"] = cnt.iloc[:n_tr].values
+        X_te_all[f"cnt_{c}"] = cnt.iloc[n_tr:].values
+    # 상호작용 키 (숫자 코드): NaN은 -1 코드
+    sb = (both["sleep_duration"] * 2).round()          # 0.5h 구간
+    st = both["stress_level"].fillna(-1)
+    ac = both["physical_activity_level"].fillna(-1)
+    k1 = sb.fillna(-1) * 10 + st                        # sleep_bin x stress
+    k2 = sb.fillna(-1) * 10 + ac                        # sleep_bin x activity
+    X_tr_all["ix_sleep_stress"] = k1.iloc[:n_tr].values
+    X_te_all["ix_sleep_stress"] = k1.iloc[n_tr:].values
+    X_tr_all["ix_sleep_act"] = k2.iloc[:n_tr].values
+    X_te_all["ix_sleep_act"] = k2.iloc[n_tr:].values
+    # cat x cat: 스트레스 x 수면질 (수면질=수면 프록시, 트리가 자동으로 못 찾는 결합)
+    sq = both["sleep_quality"].fillna(-1)
+    k3 = st * 10 + sq
+    X_tr_all["ix_stress_quality"] = k3.iloc[:n_tr].values
+    X_te_all["ix_stress_quality"] = k3.iloc[n_tr:].values
+    # 비율 피처: 걸음당 칼로리 (트리가 스스로 못 만드는 나눗셈)
+    cps = both["calorie_expenditure"] / (both["step_count"] + 1)
+    X_tr_all["cal_per_step"] = cps.iloc[:n_tr].values
+    X_te_all["cal_per_step"] = cps.iloc[n_tr:].values
+    # 무신호 피처 제거
+    X_tr_all = X_tr_all.drop(columns=DEAD_FEATURES)
+    X_te_all = X_te_all.drop(columns=DEAD_FEATURES)
+    return X_tr_all, X_te_all
+
+
+def add_soft_impute(X_tr_all, X_te_all):
+    """소프트 임퓨테이션: 결측 피처의 확률을 보조모델로 추정 (라벨 y 미사용 -> 누수 없음).
+
+    - stress/activity: 3클래스 확률, sleep: P(<6h), P(>=7h)
+    - 관측된 행은 실제값의 원핫/지시값으로 대체 (확률=확실성 1)
+    - 소프트 규칙 사후확률: P(unh)=P(<6)*P(high), P(fit)=P(>=7)*P(low)*P(active)
+    """
+    from sklearn.ensemble import HistGradientBoostingClassifier as HGB
+    both = pd.concat([X_tr_all, X_te_all], ignore_index=True)
+    n_tr = len(X_tr_all)
+
+    def aux_proba(target, classes_n):
+        feats = [c for c in NUM + CAT if c != target]
+        obs_tr = X_tr_all[target].notna()
+        m = HGB(max_iter=200, learning_rate=0.1, early_stopping=True, random_state=0)
+        m.fit(X_tr_all.loc[obs_tr, feats], X_tr_all.loc[obs_tr, target].astype(int))
+        P = m.predict_proba(both[feats])
+        # 관측 행은 실제값 원핫으로 덮어씀
+        obs = both[target].notna().to_numpy()
+        vals = both[target].to_numpy()
+        for k in range(classes_n):
+            P[obs, k] = (vals[obs] == k).astype(float)
+        return P
+
+    P_st = aux_proba("stress_level", 3)          # [low, med, high]
+    P_ac = aux_proba("physical_activity_level", 3)  # [sed, mod, act]
+
+    def aux_binary(flag_col):
+        feats = [c for c in NUM + CAT if c != "sleep_duration"]
+        obs_tr = X_tr_all["sleep_duration"].notna()
+        m = HGB(max_iter=200, learning_rate=0.1, early_stopping=True, random_state=0)
+        m.fit(X_tr_all.loc[obs_tr, feats], X_tr_all.loc[obs_tr, flag_col].astype(int))
+        p = m.predict_proba(both[feats])[:, 1]
+        obs = both["sleep_duration"].notna().to_numpy()
+        p[obs] = both.loc[obs, flag_col].to_numpy(dtype=float)
+        return p
+
+    both["sleep_ge7"] = np.where(both.sleep_duration.isna(), np.nan,
+                                 (both.sleep_duration >= 7).astype(float))
+    X_tr_all["sleep_ge7"] = both["sleep_ge7"].iloc[:n_tr].values
+    p_lt6 = aux_binary("sleep_lt6")
+    p_ge7 = aux_binary("sleep_ge7")
+
+    out = pd.DataFrame({
+        "p_stress_low": P_st[:, 0], "p_stress_high": P_st[:, 2],
+        "p_act_active": P_ac[:, 2], "p_act_sed": P_ac[:, 0],
+        "p_sleep_lt6": p_lt6, "p_sleep_ge7": p_ge7,
+        "p_rule_unh": p_lt6 * P_st[:, 2],
+        "p_rule_fit": p_ge7 * P_st[:, 0] * P_ac[:, 2],
+    })
+    A = pd.concat([X_tr_all.drop(columns=["sleep_ge7"]).reset_index(drop=True),
+                   out.iloc[:n_tr].reset_index(drop=True)], axis=1)
+    B = pd.concat([X_te_all.reset_index(drop=True),
+                   out.iloc[n_tr:].reset_index(drop=True)], axis=1)
+    return A, B
+
+
 def make_hgb(seed):
     return HistGradientBoostingClassifier(
         max_iter=2000, learning_rate=0.05, max_leaf_nodes=63,
@@ -91,17 +193,29 @@ def run(variant="C", seed=SEED, n_splits=5, model_kind="hgb"):
     mapping = {c: i for i, c in enumerate(CLASSES)}
     y = train[TARGET].map(mapping).to_numpy()
 
+    flags = VARIANT_FEATURES[variant]
     X = base_encode(train)
     X_test = base_encode(test)
-    if variant >= "B":
+    if "rule" in flags:
         X, X_test = add_rule_features(X), add_rule_features(X_test)
+    if "soft" in flags:
+        X, X_test = add_soft_impute(X, X_test)
+        print(f"soft-impute features added: {X.shape[1]} cols")
+    if "bundle" in flags:
+        X, X_test = add_bundle_features(X, X_test)
+        print(f"bundle features added: {X.shape[1]} cols")
+
+    # TE 대상: 남아있는 수치형 + (번들이면) 상호작용 키
+    te_cols = [c for c in NUM if c in X.columns]
+    if "bundle" in flags:
+        te_cols += ["ix_sleep_stress", "ix_sleep_act", "ix_stress_quality"]
 
     orig = None
-    if variant >= "D":
+    if "orig" in flags:
         o = pd.read_csv(DATA / "original" / "student_health_dataset_50k.csv")
         y_o = o[TARGET].map(mapping).to_numpy()
         X_o = base_encode(o)
-        if variant >= "B":
+        if "rule" in flags:
             X_o = add_rule_features(X_o)
         orig = (X_o, y_o)
         print(f"augment: original 50k appended to train folds")
@@ -119,14 +233,14 @@ def run(variant="C", seed=SEED, n_splits=5, model_kind="hgb"):
             X_tr = pd.concat([X_tr, orig[0]], ignore_index=True)
             y_tr = np.concatenate([y_tr, orig[1]])
 
-        if variant >= "C":
-            # 수치형 exact-value TE: 각 정확한 값 = 하나의 카테고리 (fold 내부 교차적합)
+        if "te" in flags:
+            # exact-value TE: 각 정확한 값 = 하나의 카테고리 (fold 내부 교차적합)
             te = TargetEncoder(target_type="multiclass", cv=5, random_state=seed)
-            sent = X_tr[NUM].fillna(-999.0)
+            sent = X_tr[te_cols].fillna(-999.0)
             te_tr = te.fit_transform(sent, y_tr)
-            te_va = te.transform(X_va[NUM].fillna(-999.0))
-            te_te = te.transform(X_te[NUM].fillna(-999.0))
-            cols = [f"te_{c}_{k}" for c in NUM for k in range(N_CLASS)]
+            te_va = te.transform(X_va[te_cols].fillna(-999.0))
+            te_te = te.transform(X_te[te_cols].fillna(-999.0))
+            cols = [f"te_{c}_{k}" for c in te_cols for k in range(N_CLASS)]
             X_tr = pd.concat([X_tr.reset_index(drop=True),
                               pd.DataFrame(te_tr, columns=cols)], axis=1)
             X_va = pd.concat([X_va.reset_index(drop=True),
@@ -140,7 +254,8 @@ def run(variant="C", seed=SEED, n_splits=5, model_kind="hgb"):
         test_pred += model.predict_proba(X_te) / n_splits
         s = balanced_accuracy_score(y[va], oof[va].argmax(1))
         scores.append(s)
-        print(f"  fold{fold} bal_acc={s:.5f} iters={model.n_iter_}")
+        iters = getattr(model, "n_iter_", None) or getattr(model, "best_iteration_", "?")
+        print(f"  fold{fold} bal_acc={s:.5f} iters={iters}")
 
     cv = balanced_accuracy_score(y, oof.argmax(1))
     tag = f"v2_{variant}_s{seed}" if model_kind == "hgb" else f"v2_{variant}_{model_kind}_s{seed}"

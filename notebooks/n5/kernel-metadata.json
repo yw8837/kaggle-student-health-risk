@@ -1,0 +1,13 @@
+{
+  "id": "yw8837/n5-hgb-te-10fold-7seed",
+  "title": "N5 - HGB TE 10fold 7seed",
+  "code_file": "n5-hgb-te-10fold-7seed.ipynb",
+  "language": "python",
+  "kernel_type": "notebook",
+  "is_private": true,
+  "enable_gpu": true,
+  "enable_internet": false,
+  "competition_sources": ["playground-series-s6e7"],
+  "dataset_sources": [],
+  "kernel_sources": []
+}
