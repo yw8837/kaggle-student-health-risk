@@ -1,0 +1,8 @@
+feature,anova_F,anova_p,kruskal_H,kruskal_p,effect_size,effect_metric
+sleep_duration,72549.6,0.0,119475.2,0.0,0.1911,eta^2
+step_count,12944.8,0.0,25904.6,0.0,0.0369,eta^2
+exercise_duration,12864.8,0.0,26244.4,0.0,0.0363,eta^2
+bmi,10601.1,0.0,13329.3,0.0,0.0304,eta^2
+calorie_expenditure,3289.8,0.0,5532.4,0.0,0.0102,eta^2
+heart_rate,36.3,1.6888076183203743e-16,103.0,4.365762145168955e-23,0.0001,eta^2
+water_intake,6.5,0.0015688845812027845,37.4,7.381861781883752e-09,0.0,eta^2

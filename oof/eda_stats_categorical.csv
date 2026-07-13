@@ -1,0 +1,7 @@
+feature,test,statistic,p_value,effect_size,effect_metric
+stress_level,chi-square,206618.5,0.0,0.4125,Cramer's V
+physical_activity_level,chi-square,75816.2,0.0,0.2409,Cramer's V
+sleep_quality,chi-square,18269.8,0.0,0.1202,Cramer's V
+smoking_alcohol,chi-square,7715.7,0.0,0.0764,Cramer's V
+diet_type,chi-square,323.1,1.11782867488197e-68,0.0154,Cramer's V
+gender,chi-square,227.8,3.895726855406292e-48,0.0131,Cramer's V

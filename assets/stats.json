@@ -1,0 +1,42 @@
+{
+  "class_pct": {
+    "at-risk": 85.87,
+    "unhealthy": 8.36,
+    "fit": 5.77
+  },
+  "class_cnt": {
+    "at-risk": 592561,
+    "unhealthy": 57724,
+    "fit": 39803
+  },
+  "missing_pct": {
+    "diet_type": 1.0,
+    "exercise_duration": 1.0,
+    "heart_rate": 1.14,
+    "bmi": 2.01,
+    "step_count": 2.02,
+    "gender": 3.1,
+    "smoking_alcohol": 4.14,
+    "physical_activity_level": 5.31,
+    "water_intake": 6.3,
+    "calorie_expenditure": 7.66,
+    "sleep_quality": 8.45,
+    "sleep_duration": 11.01,
+    "stress_level": 12.0
+  },
+  "importance_top": {
+    "stress_level": 464015.0,
+    "sleep_duration": 380932.0,
+    "physical_activity_level": 159365.0,
+    "bmi": 34521.0,
+    "step_count": 23098.0,
+    "exercise_duration": 21360.0,
+    "calorie_expenditure": 19688.0,
+    "water_intake": 19031.0,
+    "heart_rate": 18501.0,
+    "smoking_alcohol": 7487.0,
+    "sleep_quality": 7362.0,
+    "diet_type": 3806.0,
+    "gender": 3378.0
+  }
+}
