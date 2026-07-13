@@ -1,0 +1,19 @@
+﻿실험,모델,인코딩,피처,불균형,데이터,검증,BalancedAcc,PublicLB,학습시간(s)
+zoo,LogisticRegression,OHE+Scale,기본13,가중,100k,holdout,0.91995,,0.8
+zoo,GaussianNB,OHE+Scale,기본13,가중,100k,holdout,0.87741,,0.2
+zoo,DecisionTree,OHE+Scale,기본13,가중,100k,holdout,0.87019,,1.4
+zoo,KNeighbors,OHE+Scale,기본13,무보정,100k,holdout,0.67031,,0.01
+zoo,RandomForest,OHE+Scale,기본13,가중,100k,holdout,0.925,,5.2
+zoo,ExtraTrees,OHE+Scale,기본13,가중,100k,holdout,0.8334,,6.7
+zoo,MLP,OHE+Scale,기본13,무보정,100k,holdout,0.87026,,27.2
+zoo,HistGradientBoosting,OHE+Scale,기본13,가중,100k,holdout,0.95183,,4.2
+zoo,LightGBM,OHE+Scale,기본13,가중,100k,holdout,0.92082,,17.6
+zoo,XGBoost,OHE+Scale,기본13,가중,100k,holdout,0.91804,,33.2
+zoo,CatBoost,OHE+Scale,기본13,가중,100k,holdout,0.94934,,38.9
+N1,LightGBM,네이티브 범주,기본13,가중,전체×5fold,OOF,0.94962,0.94952,335.0
+V2-A,HistGB,서수,기본13,가중,전체×5fold,OOF,0.94945,,112.0
+V2-B,HistGB,서수,+규칙피처,가중,전체×5fold,OOF,0.9495,,185.0
+V2-C,HistGB,서수+수치TE,+규칙피처,가중,전체×5fold,OOF,0.95028,,225.0
+V2-D,HistGB,서수+수치TE,+규칙+원본50k,가중,전체×5fold,OOF,0.9497,,204.0
+N2,HistGB,서수+수치TE,+규칙피처,가중,전체×5fold×5seed,OOF,0.95051,0.94982,1200.0
+N3,3모델 보팅,서수+수치TE,+규칙피처,가중,전체×5fold,중첩검증,,,
