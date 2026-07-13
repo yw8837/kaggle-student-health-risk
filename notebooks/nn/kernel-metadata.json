@@ -1,0 +1,13 @@
+{
+  "id": "yw8837/n4-nn-plr-gpu",
+  "title": "N4 - NN PLR GPU",
+  "code_file": "nn-plr.ipynb",
+  "language": "python",
+  "kernel_type": "notebook",
+  "is_private": true,
+  "enable_gpu": true,
+  "enable_internet": false,
+  "competition_sources": ["playground-series-s6e7"],
+  "dataset_sources": [],
+  "kernel_sources": []
+}
