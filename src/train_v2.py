@@ -162,17 +162,20 @@ def add_soft_impute(X_tr_all, X_te_all):
     return A, B
 
 
-def make_hgb(seed):
+def make_hgb(seed, metric_aligned=False):
+    """metric_aligned=True: 조기중단 기준을 대회지표(balanced accuracy)로 정렬
+    (커뮤니티 실증: logloss 기준 조기중단은 지표와 어긋나 악화 사례 있음)"""
     return HistGradientBoostingClassifier(
         max_iter=2000, learning_rate=0.05, max_leaf_nodes=63,
         early_stopping=True, validation_fraction=0.08, n_iter_no_change=50,
+        scoring="balanced_accuracy" if metric_aligned else "loss",
         class_weight="balanced", random_state=seed)
 
 
-def make_model(kind, seed):
+def make_model(kind, seed, metric_aligned=False):
     """보팅 다양성용 모델 팩토리 (전부 sklearn API, 동일 폴드에서 비교)."""
     if kind == "hgb":
-        return make_hgb(seed)
+        return make_hgb(seed, metric_aligned=metric_aligned)
     if kind == "cat":
         from catboost import CatBoostClassifier
         return CatBoostClassifier(iterations=2000, learning_rate=0.05, depth=8,
@@ -208,6 +211,8 @@ def run(variant="C", seed=SEED, n_splits=5, model_kind="hgb"):
     # TE 대상: 남아있는 수치형 + (번들이면) 상호작용 키
     te_cols = [c for c in NUM if c in X.columns]
     if "bundle" in flags:
+        # 커뮤니티 v0.7 원 레시피: 범주형 6개도 TE (우리 기존엔 수치만)
+        te_cols += [c for c in CAT if c in X.columns]
         te_cols += ["ix_sleep_stress", "ix_sleep_act", "ix_stress_quality"]
 
     orig = None
@@ -248,7 +253,8 @@ def run(variant="C", seed=SEED, n_splits=5, model_kind="hgb"):
             X_te = pd.concat([X_te.reset_index(drop=True),
                               pd.DataFrame(te_te, columns=cols)], axis=1)
 
-        model = make_model(model_kind, seed + fold)
+        model = make_model(model_kind, seed + fold,
+                           metric_aligned=("bundle" in flags))
         model.fit(X_tr, y_tr)
         oof[va] = model.predict_proba(X_va)
         test_pred += model.predict_proba(X_te) / n_splits
