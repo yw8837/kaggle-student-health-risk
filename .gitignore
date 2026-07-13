@@ -1,0 +1,13 @@
+# Kaggle data (라이선스/용량 — 다운로드 방법은 data/README.md)
+data/*.csv
+data/*.zip
+
+# 대용량 산출물 (확률 배열, 제출파일)
+oof/*.npy
+subs/*.csv
+
+# 캐시/세션
+__pycache__/
+*.pyc
+.omc/
+.ipynb_checkpoints/
