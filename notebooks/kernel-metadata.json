@@ -1,0 +1,13 @@
+{
+  "id": "yw8837/ps-s6e7-v2-hgb-targetencoder",
+  "title": "PS S6E7 V2 - HistGB + exact-value TargetEncoder",
+  "code_file": "v2-hgb-te.ipynb",
+  "language": "python",
+  "kernel_type": "notebook",
+  "is_private": true,
+  "enable_gpu": false,
+  "enable_internet": false,
+  "competition_sources": ["playground-series-s6e7"],
+  "dataset_sources": [],
+  "kernel_sources": []
+}
