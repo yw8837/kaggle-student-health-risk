@@ -1,0 +1,13 @@
+{
+  "id": "yw8837/clf-gpu-probe-t4-check",
+  "title": "clf-gpu-probe-t4-check",
+  "code_file": "gpu-probe.py",
+  "language": "python",
+  "kernel_type": "script",
+  "is_private": true,
+  "enable_gpu": true,
+  "enable_internet": false,
+  "competition_sources": ["playground-series-s6e7"],
+  "dataset_sources": [],
+  "kernel_sources": []
+}
